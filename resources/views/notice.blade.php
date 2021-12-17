@@ -2,6 +2,12 @@
 
 @section('content')
 {{--    <section class="module bg-dark-60 about-page-header" data-background="/images/shop/watchring_main.png">--}}
+
+    <style>
+        table th,td {
+            text-align: center;
+        }
+    </style>
     <section class="module bg-dark-60 about-page-header" style="background-image:url('/images/shop/watchring_main.png');">
         <div class="container">
             <div class="row">
@@ -39,31 +45,102 @@
     <section>
         <div style="width: 80%; margin-left: 10%; margin-bottom: 15%;" >
             <table class="table table-hover">
+                <colgroup>
+                    <col style="width: 10%">
+                    <col style="width: 40%">
+                    <col style="width: 25%">
+                    <col style="width: 25%">
+                </colgroup>
                 <thead>
                     <tr>
-                        <th scope="col">NO</th>
-                        <th scope="col">제목</th>
-                        <th scope="col">작성자</th>
-                        <th scope="col">등록일</th>
+                        <th>NO</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>등록일</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td align="center" colspan="4">등록된 공지사항이 없습니다.</td>
-                    </tr>
+                    @if ( count($notice_list) > 0 )
+                        @foreach($notice_list as $notice)
+                            <tr onclick="fn_move_notice_detail('{{$notice->notice_id}}');" style="cursor: pointer;">
+                                <td>{{$notice->notice_id}}</td>
+                                <td>{{$notice->notice_title}}</td>
+                                <td>{{$notice->member_name}}</td>
+                                <td>{{$notice->created_at}}</td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <tr>
+                            <td align="center" colspan="4">등록된 공지사항이 없습니다.</td>
+                        </tr>
+                    @endif
+
             </table>
-            <div align="right">
-                <p>(후에 관리자만 글쓰기 가능하도록)</p>
-                <button class="btn btn-d btn-round" id="notice_write">글쓰기</button>
-            </div>
+            @if ( session('admin_session') )
+                <div align="right">
+                    <button class="btn btn-d btn-round" id="notice_write">글쓰기</button>
+                </div>
+            @endif
         </div>
     </section>
 
     <script>
         $(document).ready(function(){
            $("#notice_write").on("click", function(){
-               location.href = "/notice_write";
+               // location.href = "/notice_write";
+               var noticeFrm = document.createElement('form');
+
+               var objs;
+
+               objs = document.createElement('input');
+               objs.setAttribute('type', 'hidden');
+               objs.setAttribute('name', 'state');
+               objs.setAttribute('value', 'write');
+               noticeFrm.appendChild(objs);
+
+               objs = document.createElement('input');
+               objs.setAttribute('type', 'hidden');
+               objs.setAttribute('name', '_token');
+               objs.setAttribute('value', '{{ csrf_token() }}');
+               noticeFrm.appendChild(objs);
+
+               noticeFrm.setAttribute('method', 'post');
+               noticeFrm.setAttribute('action', "/notice_write");
+
+               document.body.appendChild(noticeFrm);
+               noticeFrm.submit();
+
            });
         });
+
+        function fn_move_notice_detail(notice_id){
+            var noticeFrm = document.createElement('form');
+
+            var objs;
+            objs = document.createElement('input');
+            objs.setAttribute('type', 'hidden');
+            objs.setAttribute('name', 'notice_id');
+            objs.setAttribute('value', notice_id);
+            noticeFrm.appendChild(objs);
+
+            objs = document.createElement('input');
+            objs.setAttribute('type', 'hidden');
+            objs.setAttribute('name', 'state');
+            objs.setAttribute('value', 'detail');
+            noticeFrm.appendChild(objs);
+
+            objs = document.createElement('input');
+            objs.setAttribute('type', 'hidden');
+            objs.setAttribute('name', '_token');
+            objs.setAttribute('value', '{{ csrf_token() }}');
+            noticeFrm.appendChild(objs);
+
+            noticeFrm.setAttribute('method', 'post');
+            noticeFrm.setAttribute('action', "/notice_detail");
+
+            document.body.appendChild(noticeFrm);
+            noticeFrm.submit();
+        }
+
     </script>
 @endsection

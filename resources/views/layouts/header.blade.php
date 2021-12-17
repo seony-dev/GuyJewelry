@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US" dir="ltr">
     <head>
-        <meta charset="UTF-8">
+        <meta charset="UTF-8" name="csrf-token" content="{{ csrf_token() }}" />
         <title>GUY JEWELRY</title>
     </head>
     <meta charset="utf-8">
@@ -72,69 +72,77 @@
     <script src="/js/main.js"></script>
 
     <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
-    <main>
-        <nav class="navbar navbar-custom navbar-fixed-top navbar-transparent" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">GUY JEWELRY</a>
+        <main>
+            <nav class="navbar navbar-custom navbar-fixed-top navbar-transparent" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">GUY JEWELRY</a>
+                    </div>
+                    <div class="collapse navbar-collapse" id="custom-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/notice">NOTICE</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">SHOP</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="index_mp_fullscreen_video_background.html">Ring</a></li>
+                                        <li><a href="index_op_fullscreen_gradient_overlay.html">bracelet</a></li>
+                                        <li><a href="index_agency.html">Necklace</a></li>
+                                        <li><a href="index_portfolio.html">watch</a></li>
+                                        <li><a href="index_restaurant.html">etc.</a></li>
+                                    </ul>
+                            </li>
+                            <li><a href="#">LOOKBOOK</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="index_mp_fullscreen_video_background.html">Default</a></li>
+                                    <li><a href="index_op_fullscreen_gradient_overlay.html">One Page</a></li>
+                                    <li><a href="index_agency.html">Agency</a></li>
+                                    <li><a href="index_portfolio.html">Portfolio</a></li>
+                                    <li><a href="index_restaurant.html">Restaurant</a></li>
+                                    <li><a href="index_finance.html">Finance</a></li>
+                                    <li><a href="index_landing.html">Landing Page</a></li>
+                                    <li><a href="index_photography.html">Photography</a></li>
+                                    <li><a href="index_shop.html">Shop</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">GUY NEWS</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="index_mp_fullscreen_video_background.html">Default</a></li>
+                                    <li><a href="index_op_fullscreen_gradient_overlay.html">One Page</a></li>
+                                    <li><a href="index_agency.html">Agency</a></li>
+                                    <li><a href="index_portfolio.html">Portfolio</a></li>
+                                    <li><a href="index_restaurant.html">Restaurant</a></li>
+                                    <li><a href="index_finance.html">Finance</a></li>
+                                    <li><a href="index_landing.html">Landing Page</a></li>
+                                    <li><a href="index_photography.html">Photography</a></li>
+                                    <li><a href="index_shop.html">Shop</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/contact">CONTACT</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="index_mp_fullscreen_video_background.html">Default</a></li>
+                                    <li><a href="index_op_fullscreen_gradient_overlay.html">One Page</a></li>
+                                    <li><a href="index_agency.html">Agency</a></li>
+                                    <li><a href="index_portfolio.html">Portfolio</a></li>
+                                    <li><a href="index_restaurant.html">Restaurant</a></li>
+                                    <li><a href="index_finance.html">Finance</a></li>
+                                    <li><a href="index_landing.html">Landing Page</a></li>
+                                    <li><a href="index_photography.html">Photography</a></li>
+                                    <li><a href="index_shop.html">Shop</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                @if ( session('admin_session') )
+                                    <a href="/logout_action">ADMIN LOGOUT</a>
+                                @else
+                                    <a href="/login">LOGIN</a>
+                                @endif
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="collapse navbar-collapse" id="custom-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/notice">NOTICE</a></li>
-                        <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown">SHOP</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="index_mp_fullscreen_video_background.html">Ring</a></li>
-                                <li><a href="index_op_fullscreen_gradient_overlay.html">bracelet</a></li>
-                                <li><a href="index_agency.html">Necklace</a></li>
-                                <li><a href="index_portfolio.html">watch</a></li>
-                                <li><a href="index_restaurant.html">etc.</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">LOOKBOOK</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="index_mp_fullscreen_video_background.html">Default</a></li>
-                                <li><a href="index_op_fullscreen_gradient_overlay.html">One Page</a></li>
-                                <li><a href="index_agency.html">Agency</a></li>
-                                <li><a href="index_portfolio.html">Portfolio</a></li>
-                                <li><a href="index_restaurant.html">Restaurant</a></li>
-                                <li><a href="index_finance.html">Finance</a></li>
-                                <li><a href="index_landing.html">Landing Page</a></li>
-                                <li><a href="index_photography.html">Photography</a></li>
-                                <li><a href="index_shop.html">Shop</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">GUY NEWS</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="index_mp_fullscreen_video_background.html">Default</a></li>
-                                <li><a href="index_op_fullscreen_gradient_overlay.html">One Page</a></li>
-                                <li><a href="index_agency.html">Agency</a></li>
-                                <li><a href="index_portfolio.html">Portfolio</a></li>
-                                <li><a href="index_restaurant.html">Restaurant</a></li>
-                                <li><a href="index_finance.html">Finance</a></li>
-                                <li><a href="index_landing.html">Landing Page</a></li>
-                                <li><a href="index_photography.html">Photography</a></li>
-                                <li><a href="index_shop.html">Shop</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="/contact">CONTACT</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="index_mp_fullscreen_video_background.html">Default</a></li>
-                                <li><a href="index_op_fullscreen_gradient_overlay.html">One Page</a></li>
-                                <li><a href="index_agency.html">Agency</a></li>
-                                <li><a href="index_portfolio.html">Portfolio</a></li>
-                                <li><a href="index_restaurant.html">Restaurant</a></li>
-                                <li><a href="index_finance.html">Finance</a></li>
-                                <li><a href="index_landing.html">Landing Page</a></li>
-                                <li><a href="index_photography.html">Photography</a></li>
-                                <li><a href="index_shop.html">Shop</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-            @yield('content')
-    </main>
+            </nav>
+                @yield('content')
+        </main>
     </body>
     @include('layouts.footer')
     <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>

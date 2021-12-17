@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Member extends Model {
+class Notice extends Model {
 
     public $timestamps = false;
 
-    public function notice() {
-        return $this->hasMany(Notice::class);
+    public function member() {
+        return $this->belongsTo(Member::class);
     }
+
 }
