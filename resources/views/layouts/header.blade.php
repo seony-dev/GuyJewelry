@@ -91,7 +91,7 @@
                                         <li><a href="index_restaurant.html">etc.</a></li>
                                     </ul>
                             </li>
-                            <li><a href="#">LOOKBOOK</a>
+                            <li><a href="/lookbook">LOOKBOOK</a>
                                 <ul class="dropdown-menu">
                                     <li><a href="index_mp_fullscreen_video_background.html">Default</a></li>
                                     <li><a href="index_op_fullscreen_gradient_overlay.html">One Page</a></li>

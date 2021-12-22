@@ -5,6 +5,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\LookbookController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,9 +52,7 @@ Route::match(array('GET','POST'), '/notice_write', [NoticeController::class, 'no
 Route::post('/notice_update', [NoticeController::class, 'notice_form']);
 
 //lookbook ( 룩북 )
-Route::get('/lookbook', function () {
-    return view('lookbook');
-});
+Route::get('/lookbook', [LookbookController::class, 'lookbook_index']);
 
 //guy news ( 가이뉴스 )
 Route::get('/guy_news', function () {
@@ -74,12 +74,34 @@ Route::post('/login_action', [LoginController::class, 'login_action']);
 //로그아웃 api
 Route::get('/logout_action', [LoginController::class, 'logout_action']);
 
+
+
+
 //공지사항 작성 api
 Route::post('/notice/write_action', [NoticeController::class, 'notice_write_action']);
 
+//공지사항 에디터 이미지 저장 api
 Route::post('/notice/save_editor_images', [NoticeController::class, 'save_editor_images']);
 
+//공지사항 조회수 증가 api
+Route::post('/notice/add_views', [NoticeController::class, 'notice_add_views']);
+
+
+//공지사항 삭제 api
+Route::post('notice/delete_action', [NoticeController::class, 'notice_delete_action']);
+
+//공지사항 수정 api
+Route::post('notice/update_action', [NoticeController::class, 'notice_update_action']);
+
+//공지사항 파일 다운로드 api
+Route::post('notice/download_file', [NoticeController::class, 'notice_download_file']);
 
 
 
+//////////////////////////////////////////////////////////////////////////admin
 
+Route::get('/admin', [AdminController::class, 'login']);
+Route::post('/admin_login_action', [AdminController::class, 'login_action']);
+Route::post('/admin_logout_action', [AdminController::class, 'logout_action']);
+
+Route::get('/admin_index', [AdminController::class, 'admin_index']);
