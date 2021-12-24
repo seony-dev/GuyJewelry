@@ -6,7 +6,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\LookbookController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +53,8 @@ Route::post('/notice_update', [NoticeController::class, 'notice_form']);
 
 //lookbook ( 룩북 )
 Route::get('/lookbook', [LookbookController::class, 'lookbook_index']);
+Route::post('/lookbook/category', [LookbookController::class, 'lookbook_category']);
+Route::post('/lookbook/content', [LookbookController::class, 'lookbook_content']);
 
 //guy news ( 가이뉴스 )
 Route::get('/guy_news', function () {
@@ -100,8 +102,25 @@ Route::post('notice/download_file', [NoticeController::class, 'notice_download_f
 
 //////////////////////////////////////////////////////////////////////////admin
 
-Route::get('/admin', [AdminController::class, 'login']);
-Route::post('/admin_login_action', [AdminController::class, 'login_action']);
-Route::post('/admin_logout_action', [AdminController::class, 'logout_action']);
+Route::get('/admin/login', [AdminController::class, 'login']);
+Route::post('/admin/login_action', [AdminController::class, 'login_action']);
+Route::post('/admin/logout_action', [AdminController::class, 'logout_action']);
 
-Route::get('/admin_index', [AdminController::class, 'admin_index']);
+//관리자 대시보드(메인)
+Route::get('/admin/index', [AdminController::class, 'admin_index']);
+
+//관리자 > 룩북 카테고리 관리 > 메인 카테고리
+Route::get('/admin/lookbook/main_category', [AdminController::class, 'main_category_index']);
+
+//관리자 > 룩북 카테고리 관리 > 서브 카테고리
+Route::get('/admin/lookbook/sub_category', [AdminController::class, 'sub_category_index']);
+
+Route::post('/admin/lookbook/main_category_info', [AdminController::class, 'main_category_info']);
+Route::post('/admin/lookbook/main_category_write_action', [AdminController::class, 'main_category_write_action']);
+Route::post('/admin/lookbook/main_category_delete_action', [AdminController::class, 'main_category_delete_action']);
+Route::post('/admin/lookbook/main_category_update_action', [AdminController::class, 'main_category_update_action']);
+
+Route::post('/admin/lookbook/sub_category_info', [AdminController::class, 'sub_category_info']);
+Route::post('/admin/lookbook/sub_category_write_action', [AdminController::class, 'sub_category_write_action']);
+Route::post('/admin/lookbook/sub_category_delete_action', [AdminController::class, 'sub_category_delete_action']);
+Route::post('/admin/lookbook/sub_category_update_action', [AdminController::class, 'sub_category_update_action']);

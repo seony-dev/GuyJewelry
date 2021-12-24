@@ -11,13 +11,13 @@
     <title>Guy Jewelry Admin</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/admin/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -27,7 +27,7 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/admin/sb-admin-2.min.js"></script>
+    <script src="js/sb-admin-2.min.js"></script>
 
 </head>
 
@@ -114,7 +114,7 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: 'post',
-                    url: '/admin_login_action',
+                    url: '/admin/login_action',
                     data: {
                         admin_id : admin_id,
                         admin_pw : admin_pw
@@ -122,7 +122,7 @@
                     success: function(result) {
                         if (result == "success"){
                             alert("ღ Welcome Guy Jewelry ! ღ \n 관리자님 로그인 됐습니다.");
-                            location.href = "/admin_index";
+                            location.href = "/admin/index";
                         } else {
                             alert("아이디와 비밀번호를 확인해주세요.");
                             location.reload();

@@ -11,37 +11,44 @@
     <title>Guy Jewelry Admin</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="{{ asset('admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/admin/sb-admin-2.min.css" rel="stylesheet">
+    <link href="{{ asset('/admin/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('/admin/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('/admin/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="{{ asset('/admin/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/admin/sb-admin-2.min.js"></script>
+    <script src="{{ asset('/admin/js/sb-admin-2.min.js') }}"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="{{ asset('/admin/vendor/chart.js/Chart.min.js') }}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/admin/demo/chart-area-demo.js"></script>
-    <script src="js/admin/demo/chart-pie-demo.js"></script>
+    <script src="{{ asset('/admin/js/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('/admin/js/demo/chart-pie-demo.js') }}"></script>
 
     <script>
         @if(empty($admin_info))
             alert("접근 권한이 없습니다.");
-            location.href = "/admin";
+            location.href = "/admin/login";
         @endif
     </script>
+
+    <style>
+        table th, td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+    </style>
 
 </head>
 
@@ -54,7 +61,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin_index">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/index">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
 {{--                    <img class="" src="/images/logo/guy_jewelry_logo.png"/>--}}
@@ -68,9 +75,9 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/admin/index>
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>메인</span></a>
+                    <span>대시보드</span></a>
             </li>
 
             <!-- Divider -->
@@ -86,13 +93,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <span>회원 (비활성화) </span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        <h6 class="collapse-header">회원 관리</h6>
+                        <a class="collapse-item" href="buttons.html">회원 목록</a>
+{{--                        <a class="collapse-item" href="cards.html">Cards</a>--}}
                     </div>
                 </div>
             </li>
@@ -102,16 +109,14 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                    aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+                    <span>관리자</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
+                        <h6 class="collapse-header">관리자 관리</h6>
+                        <a class="collapse-item" href="utilities-color.html">관리자 목록</a>
+                        <a class="collapse-item" href="utilities-border.html">관리자 등록</a>
                     </div>
                 </div>
             </li>
@@ -134,8 +139,8 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 {{--                        <h6 class="collapse-header">메인 카테고리</h6>--}}
-                        <a class="collapse-item" href="login.html">메인 카테고리</a>
-                        <a class="collapse-item" href="register.html">서브 카테고리</a>
+                        <a class="collapse-item" href="/admin/lookbook/main_category">메인 카테고리</a>
+                        <a class="collapse-item" href="/admin/lookbook/sub_category">서브 카테고리</a>
 {{--                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>--}}
 {{--                        <div class="collapse-divider"></div>--}}
 {{--                        <h6 class="collapse-header">Other Pages:</h6>--}}
@@ -379,7 +384,7 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 @if ( session('admin_session') )
-                                    <a class="dropdown-item" href="/admin_logout_action" data-toggle="modal" data-target="#logoutModal">
+                                    <a class="dropdown-item" href="/admin/logout_action">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Logout
                                     </a>

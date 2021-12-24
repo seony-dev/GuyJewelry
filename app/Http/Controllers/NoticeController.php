@@ -143,9 +143,22 @@ class NoticeController extends Controller
                 $new_write_notice->notice_link = $request->notice_link;
             }
 
-            if (!empty($request->notice_file)) {
-                $new_write_notice->notice_file = $request->notice_file;
+            if(!empty($request->notice_file)) {
+                $file = $request->file('notice_file');
+
+                if ($file->isValid()) {
+
+                    //파일 이름 저장
+                    $file_name = $file->getClientOriginalName();
+                    $new_write_notice->notice_file_name = $file_name;
+
+                    //파일 경로 저장
+                    $path = Storage::disk('public')->put('files', $file);
+                    $new_write_notice->notice_file = $path;
+
+                }
             }
+
             $new_write_notice->user_id = $request->user_id;
             $new_write_notice->created_at = date('Y-m-d H:i:s');
 
