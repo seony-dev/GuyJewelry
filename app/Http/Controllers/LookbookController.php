@@ -41,13 +41,16 @@ class LookbookController extends Controller
 
     public function lookbook_content(Request $request)
     {
-        $lookbook_main_category_id = $request->lookbook_main_category_id;
+        $lookbook_sub_category_id = $request->lookbook_sub_category_id;
 
-        $lookbook_sub_category_list = LookbookSubCategory::where('del_yn', 'N')
-            ->where('lookbook_main_category_id', $lookbook_main_category_id)
+        $lookbook_list = Lookbook::where([
+                ['del_yn', 'N'],
+                ['lookbook_sub_category_id', $lookbook_sub_category_id]
+        ])
             ->orderBy('created_at', 'DESC')
             ->get();
+//            ->paginate(10);
 
-        return view("lookbook/lookbook_content", compact('lookbook_sub_category_list'));
+        return view("lookbook/lookbook_content", compact('lookbook_list'));
     }
 }

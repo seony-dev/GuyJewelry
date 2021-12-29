@@ -33,7 +33,7 @@
             <ul class="works-grid works-hover-w" id="works-grid">
                 @if ( count($lookbook_sub_category_list) > 0 )
                     @foreach($lookbook_sub_category_list as $lookbook_sub_category)
-                        <li class="work-item illustration webdesign move_sub_category" data-id="{{$lookbook_sub_category->id}}">
+                        <li class="work-item illustration webdesign move_content" data-id="{{$lookbook_sub_category->id}}">
                             <div class="work-image">
                                 <img src="{{$lookbook_sub_category->lookbook_sub_category_image}}" alt="{{$lookbook_sub_category->lookbook_sub_category_name}}"/>
                             </div>
@@ -57,8 +57,8 @@
         $(document).ready(function(){
 
 
-            $(".move_sub_category").on("click", function(){
-                var lookbook_main_category_id = $(this).attr("data-id");
+            $(".move_content").on("click", function(){
+                var lookbook_sub_category_id = $(this).attr("data-id");
 
                 var lookbookFrm = document.createElement('form');
 
@@ -66,8 +66,8 @@
 
                 objs = document.createElement('input');
                 objs.setAttribute('type', 'hidden');
-                objs.setAttribute('name', 'lookbook_main_category_id');
-                objs.setAttribute('value', lookbook_main_category_id);
+                objs.setAttribute('name', 'lookbook_sub_category_id');
+                objs.setAttribute('value', lookbook_sub_category_id);
                 lookbookFrm.appendChild(objs);
 
                 objs = document.createElement('input');
@@ -76,8 +76,8 @@
                 objs.setAttribute('value', '{{ csrf_token() }}');
                 lookbookFrm.appendChild(objs);
 
-                lookbookFrm.setAttribute('method', 'get');
-                lookbookFrm.setAttribute('action', "/lookbook/category");
+                lookbookFrm.setAttribute('method', 'post');
+                lookbookFrm.setAttribute('action', "/lookbook/content");
 
                 document.body.appendChild(lookbookFrm);
                 lookbookFrm.submit();

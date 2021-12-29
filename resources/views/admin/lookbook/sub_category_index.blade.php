@@ -37,7 +37,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if(!empty($lookbook_sub_category_list))
+                    @if(count($lookbook_sub_category_list) > 0)
                         @foreach($lookbook_sub_category_list as $lookbook_sub_category)
                             <tr>
                                 <td>
@@ -54,10 +54,10 @@
                                 <td>{{$lookbook_sub_category->created_at}}</td>
                                 <td>
                                     @if($lookbook_sub_category->del_yn == "N")
-                                        <button class="btn btn-danger btn_delete_main_category" data-id="{{$lookbook_sub_category->lookbook_sub_category_id}}">삭제</button>
+                                        <button class="btn btn-danger btn_delete_sub_category" data-id="{{$lookbook_sub_category->lookbook_sub_category_id}}">삭제</button>
                                         <button class="btn btn-info btn_update_modal" data-id="{{$lookbook_sub_category->lookbook_sub_category_id}}" data-toggle="modal" data-target="#lookbook_update_modal">수정</button>
                                     @else
-                                        <button class="btn btn-outline-dark">삭제취소</button>
+                                        <button class="btn btn-outline-dark btn_delete_cancel_sub_category" data-id="{{$lookbook_sub_category->lookbook_sub_category_id}}">삭제취소</button>
                                     @endif
                                 </td>
                             </tr>
@@ -102,9 +102,9 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>카테고리 이미지</th>
-                                <td>
-                                    <input type="file" id="lookbook_main_category_image" name="lookbook_main_category_image" style="margin-bottom: 20px;">
+                                <th>카테고리 <br> 이미지</th>
+                                <td style="text-align: left;">
+                                    <input type="file" id="lookbook_main_category_image" name="lookbook_main_category_image">
                                     <img src="" alt="" id="preview" style="max-width: 300px;">
                                 </td>
                             </tr>
@@ -147,10 +147,10 @@
                                     <input type="text" class="form-control input-group update_name" id="lookbook_sub_category_name" name="lookbook_sub_category_name" value="">
                                 </td>
                             </tr>
-                            <tr>
-                                <th>카테고리 이미지</th>
-                                <td>
-                                    <input type="file" class="update_category_img" id="lookbook_sub_category_image" name="lookbook_sub_category_image" style="margin-bottom: 20px;">
+                            <tr style="text-align: left;">
+                                <th>카테고리 <br> 이미지</th>
+                                <td style="text-align: left;">
+                                    <input type="file" class="update_category_img" id="lookbook_sub_category_image" name="lookbook_sub_category_image">
                                     <img src="" alt="" id="preview" style="max-width: 300px;" class="update_img">
                                 </td>
                             </tr>
@@ -200,6 +200,30 @@
                 });
             });
 
+            $("#btn_insert_sub_category").on("click", function(){
+
+                var categoryFrm = $("#categoryFrm")[0];
+                var formData = new FormData(categoryFrm);
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                    , url : "/admin/lookbook/sub_category_write_action"
+                    , data:formData
+                    , cache:false
+                    , contentType:false
+                    , processData:false
+                    , enctype:'multipart/formDataData'
+                    , type:'POST'
+                    , success:function(result) {
+                        if(result == "success") {
+                            alert("정상 등록 됐습니다!");
+                            location.reload();
+                        }
+                    }
+                });
+            });
 
             $(".btn_delete_sub_category").on("click", function(){
 
@@ -223,6 +247,85 @@
                 });
             });
 
+            $(".btn_delete_cancel_sub_category").on("click", function(){
+
+                var lookbook_sub_category_id = $(this).attr("data-id");
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                    , url : "/admin/lookbook/sub_category_delete_action"
+                    , data: {
+                        lookbook_sub_category_id : lookbook_sub_category_id
+                    }
+                    , type:'POST'
+                    , success:function(result) {
+                        if(result == "success") {
+                            alert("해당 카테고리가 삭제 취소되었습니다!");
+                            location.reload();
+                        }
+                    }
+                });
+            });
+
+            $(".btn_update_modal").on("click", function(){
+
+                $(".update_name").val('');
+                $(".update_img").attr("src", '');
+
+                var lookbook_sub_category_id = $(this).attr("data-id");
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                    , type:'POST'
+                    , url : '/admin/lookbook/sub_category_info'
+                    , data: {
+                        lookbook_sub_category_id : lookbook_sub_category_id
+                    }
+                    , success:function(result) {
+
+                        $(".update_name").val(result.lookbook_sub_category_name);
+                        $(".update_img").attr("src", '/'+result.lookbook_sub_category_image);
+                        $(".lookbook_sub_category_id").val(result.id);
+                    }
+                });
+            });
+
+            $('.update_category_img').change(function(){
+                setImageFromFile(this, '.update_img');
+            });
+
+            $('.btn_update_sub_category').on("click", function(){
+
+                var update_categoryFrm = $('#update_categoryFrm')[0];
+                var formData = new FormData(update_categoryFrm);
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                    , url : "/admin/lookbook/sub_category_update_action"
+                    , data: formData
+                    , cache:false
+                    , contentType:false
+                    , processData:false
+                    , enctype:'multipart/formDataData'
+                    , type:'POST'
+                    , success:function(result) {
+
+                        if(result == "success") {
+                            alert("정상적으로 수정되었습니다!");
+                            location.reload();
+                        } else {
+                            alert("에러가 발생했습니다. 다시 시도해주세요.");
+                        }
+                    }
+                });
+            });
+
         });
 
         //카테고리 등록 > 파일 선택 시, 이미지 썸네일
@@ -235,89 +338,6 @@
                 reader.readAsDataURL(input.files[0]);
             }
         }
-
-        $("#btn_insert_sub_category").on("click", function(){
-
-            var categoryFrm = $("#categoryFrm")[0];
-            var formData = new FormData(categoryFrm);
-
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-                , url : "/admin/lookbook/sub_category_write_action"
-                , data:formData
-                , cache:false
-                , contentType:false
-                , processData:false
-                , enctype:'multipart/formDataData'
-                , type:'POST'
-                , success:function(result) {
-                    if(result == "success") {
-                        alert("정상 등록 됐습니다!");
-                        location.reload();
-                    }
-                }
-            });
-        });
-
-        $(".btn_update_modal").on("click", function(){
-
-            $(".update_name").val('');
-            $(".update_img").attr("src", '');
-
-            var lookbook_sub_category_id = $(this).attr("data-id");
-
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-                , type:'POST'
-                , url : '/admin/lookbook/sub_category_info'
-                , data: {
-                    lookbook_sub_category_id : lookbook_sub_category_id
-                }
-                , success:function(result) {
-
-                    $(".update_name").val(result.lookbook_sub_category_name);
-                    $(".update_img").attr("src", '/'+result.lookbook_sub_category_image);
-                    $(".lookbook_sub_category_id").val(result.id);
-                }
-            });
-        });
-
-        $('.update_category_img').change(function(){
-            setImageFromFile(this, '.update_img');
-        });
-
-        $('.btn_update_sub_category').on("click", function(){
-
-            var update_categoryFrm = $('#update_categoryFrm')[0];
-            var formData = new FormData(update_categoryFrm);
-
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-                , url : "/admin/lookbook/sub_category_update_action"
-                , data: formData
-                , cache:false
-                , contentType:false
-                , processData:false
-                , enctype:'multipart/formDataData'
-                , type:'POST'
-                , success:function(result) {
-
-                    if(result == "success") {
-                        alert("정상적으로 수정되었습니다!");
-                        location.reload();
-                    } else {
-                        alert("에러가 발생했습니다. 다시 시도해주세요.");
-                    }
-                }
-            });
-        });
-
 
     </script>
 @endsection

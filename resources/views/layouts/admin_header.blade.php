@@ -152,9 +152,10 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="/admin/lookbook/contents">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>룩북 이미지 관리</span></a>
+                    <span>룩북 이미지 관리</span>
+                </a>
             </li>
 
             <!-- Nav Item - Tables -->

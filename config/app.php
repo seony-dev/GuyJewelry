@@ -175,6 +175,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //21.12.29 서은
+        //이미지 업로드 시, 리사이즈하기 위해 추가
+        Intervention\Image\ImageServiceProvider::class,
+
     ],
 
     /*
@@ -229,6 +233,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        //21.12.29 서은
+        //이미지 업로드 시, 리사이즈하기 위해 추가
+        //'Image' => Intervention\Image\Facades\Image::class,
+        'Image' => Intervention\Image\ImageManagerStatic::class,
 
     ],
 
