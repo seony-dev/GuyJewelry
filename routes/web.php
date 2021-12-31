@@ -8,6 +8,7 @@ use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\LookbookController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminLookbookController;
+use App\Http\Controllers\Admin\AdminSettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,6 +111,15 @@ Route::post('/admin/logout_action', [AdminController::class, 'logout_action']);
 //관리자 대시보드(메인)
 Route::get('/admin/index', [AdminController::class, 'admin_index']);
 
+
+/************** 설정 관리 *******************/
+
+/* 관리자 > 설정 > 관리자 목록 */
+Route::get('/admin/setting/admin_list', [AdminSettingController::class, 'admin_list']);
+Route::post('/admin/setting/admin_info', [AdminSettingController::class, 'admin_info']);
+Route::post('/admin/setting/admin_write_action', [AdminSettingController::class, 'admin_write_action']);
+Route::post('/admin/setting/admin_delete_action', [AdminSettingController::class, 'admin_delete_action']);
+Route::post('/admin/setting/admin_update_action', [AdminSettingController::class, 'admin_update_action']);
 
 /************** 룩북 관리 *******************/
 

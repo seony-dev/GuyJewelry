@@ -109,14 +109,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                    aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>관리자</span>
+                    <span>설정</span>
                 </a>
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">관리자 관리</h6>
-                        <a class="collapse-item" href="utilities-color.html">관리자 목록</a>
-                        <a class="collapse-item" href="utilities-border.html">관리자 등록</a>
+                        <h6 class="collapse-header">관리자 설정</h6>
+                        <a class="collapse-item" href="/admin/setting/admin_list">관리자 목록</a>
                     </div>
                 </div>
             </li>
@@ -159,11 +158,11 @@
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
+{{--            <li class="nav-item">--}}
+{{--                <a class="nav-link" href="tables.html">--}}
+{{--                    <i class="fas fa-fw fa-table"></i>--}}
+{{--                    <span>Tables</span></a>--}}
+{{--            </li>--}}
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
