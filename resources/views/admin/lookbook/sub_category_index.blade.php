@@ -33,7 +33,7 @@
                         <th>카테고리명</th>
                         <th>카테고리 이미지</th>
                         <th>등록일</th>
-                        <th> </th>
+                        <th style="border-right-color: transparent;"> </th>
                     </tr>
                     </thead>
                     <tbody>

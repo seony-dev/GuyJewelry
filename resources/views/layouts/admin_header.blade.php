@@ -41,6 +41,31 @@
             alert("접근 권한이 없습니다.");
             location.href = "/admin/login";
         @endif
+
+        $(document).ready(function(){
+            $("#admin_alarm_counter").text('{{$admin_alarm_cnt}}+');
+        });
+
+        function fn_new_alarm_check(alarm_type, alarm_id){
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+                , url : "/admin/new_alarm_check_action"
+                , data: {
+                    alarm_type : alarm_type
+                    , alarm_id : alarm_id
+                }
+                , type:'POST'
+                , success:function(result) {
+                    if(result.result == "success") {
+                        if(result.alarm_type === '1'){
+                            location.href = '/admin/contact/inquiry';
+                        }
+                    }
+                }
+            });
+        }
     </script>
 
     <style>
@@ -75,7 +100,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="/admin/index>
+                <a class="nav-link" href="/admin/index">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>대시보드</span></a>
             </li>
@@ -85,7 +110,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                회원 관리
+                Member
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -125,7 +150,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                룩북 관리
+                Lookbook
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -149,36 +174,68 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="/admin/lookbook/contents">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>룩북 이미지 관리</span>
                 </a>
             </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
-            <!-- Nav Item - Tables -->
-{{--            <li class="nav-item">--}}
-{{--                <a class="nav-link" href="tables.html">--}}
-{{--                    <i class="fas fa-fw fa-table"></i>--}}
-{{--                    <span>Tables</span></a>--}}
-{{--            </li>--}}
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Contact
+            </div>
 
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/contact/inquiry">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>간편상담 관리</span>
+                    </a>
+                </li>
+{{--                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">--}}
+{{--                    <div class="bg-white py-2 collapse-inner rounded">--}}
+{{--                        <a class="collapse-item" href="/admin/lookbook/main_category">메인 카테고리</a>--}}
+{{--                        <a class="collapse-item" href="/admin/lookbook/sub_category">서브 카테고리</a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
-            <!-- Sidebar Toggler (Sidebar) -->
-{{--            <div class="text-center d-none d-md-inline">--}}
-{{--                <button class="rounded-circle border-0" id="sidebarToggle"></button>--}}
-{{--            </div>--}}
-
-            <!-- Sidebar Message -->
-{{--            <div class="sidebar-card d-none d-lg-flex">--}}
-{{--                <img class="sidebar-card-illustration mb-2" src="images/admin/undraw_rocket.svg" alt="...">--}}
-{{--                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>--}}
-{{--                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>--}}
-{{--            </div>--}}
-
+            <div class="sidebar-heading">
+                Shop
+            </div>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#shopPages"
+                   aria-expanded="true" aria-controls="shopPages">
+                    <i class="fas fa-fw fa-shopping-basket"></i>
+                    <span>상품 카테고리 관리</span>
+                </a>
+                <div id="shopPages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/admin/shop/main_category">메인 카테고리</a>
+                        <a class="collapse-item" href="/admin/shop/sub_category">서브 카테고리</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/shop/brand">
+                    <i class="fas fa-fw fa-shopping-bag"></i>
+                    <span>브랜드 관리</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/admin/shop/product">
+                    <i class="fas fa-fw fa-shopping-cart"></i>
+                    <span>상품 관리</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
         </ul>
         <!-- End of Sidebar -->
 
@@ -239,52 +296,64 @@
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
-{{--                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"--}}
-{{--                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-{{--                                <i class="fas fa-bell fa-fw"></i>--}}
-{{--                                <!-- Counter - Alerts -->--}}
-{{--                                <span class="badge badge-danger badge-counter">3+</span>--}}
-{{--                            </a>--}}
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter" id="admin_alarm_counter">0</span>
+                            </a>
                             <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Alerts Center
+                                    새 알림
                                 </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
+                                @if($admin_alarm_cnt > 0)
+                                    @foreach($admin_alarm_list as $admin_alarm)
+                                        <a class="dropdown-item d-flex align-items-center" href="javascript:fn_new_alarm_check('{{$admin_alarm->alarm_type}}', '{{$admin_alarm->id}}');">
+                                            <div class="mr-3">
+                                                <div class="icon-circle bg-primary">
+                                                    <i class="fas fa-file-alt text-white"></i>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="small text-gray-500">{{$admin_alarm->created_at}}</div>
+                                                <span class="font-weight-bold">{{$admin_alarm->alarm_title}}</span>
+                                                <div>{{$admin_alarm->alarm_contents}}</div>
+                                            </div>
+                                        </a>
+                                    @endforeach
+                                @else
+                                    <div class="dropdown-item d-flex align-items-center">
+                                        <div>
+                                            <span>새로운 알람이 없습니다.</span>
                                         </div>
                                     </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                @endif
+
+{{--                                <a class="dropdown-item d-flex align-items-center" href="#">--}}
+{{--                                    <div class="mr-3">--}}
+{{--                                        <div class="icon-circle bg-success">--}}
+{{--                                            <i class="fas fa-donate text-white"></i>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div>--}}
+{{--                                        <div class="small text-gray-500">December 7, 2019</div>--}}
+{{--                                        $290.29 has been deposited into your account!--}}
+{{--                                    </div>--}}
+{{--                                </a>--}}
+{{--                                <a class="dropdown-item d-flex align-items-center" href="#">--}}
+{{--                                    <div class="mr-3">--}}
+{{--                                        <div class="icon-circle bg-warning">--}}
+{{--                                            <i class="fas fa-exclamation-triangle text-white"></i>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                    <div>--}}
+{{--                                        <div class="small text-gray-500">December 2, 2019</div>--}}
+{{--                                        Spending Alert: We've noticed unusually high spending for your account.--}}
+{{--                                    </div>--}}
+{{--                                </a>--}}
+{{--                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>--}}
                             </div>
                         </li>
 
@@ -363,8 +432,6 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">@if(!empty($admin_info)){{$admin_info->member_name}}@endif</span>
-{{--                                <img class="img-profile rounded-circle"--}}
-{{--                                     src="images/admin/undraw_profile.svg">--}}
                                 <img class="img-profile rounded-circle" src="/images/logo/guy_jewelry_logo.png"/>
                             </a>
                             <!-- Dropdown - User Information -->

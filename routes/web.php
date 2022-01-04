@@ -6,9 +6,14 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NoticeController;
 use App\Http\Controllers\LookbookController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\GuyNewsController;
+use App\Http\Controllers\ShopController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminLookbookController;
 use App\Http\Controllers\Admin\AdminSettingController;
+use App\Http\Controllers\Admin\AdminContactController;
+use App\Http\Controllers\Admin\AdminShopController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,37 +42,50 @@ Route::get('/db_check', function () {
 
 /*********** View Page ***********/
 
-//Main
+/* Main */
 Route::get('/', [MainController::class, 'index']);
 Route::get('/index', [MainController::class, 'index']);
 
-//Login ( 로그인 )
+
+/* Login ( 로그인 ) */
 Route::get('/login', [LoginController::class, 'login_index']);
 
-//Notice ( 공지사항 )
+
+/* Notice ( 공지사항 ) */
 Route::get('/notice', [NoticeController::class, 'notice_index']);
 Route::match(array('GET','POST'), '/notice_detail', [NoticeController::class, 'notice_detail']);
 
-//Notice 작성 및 수정 폼
+//Notice 작성 및 수정 폼 + api
 Route::match(array('GET','POST'), '/notice_write', [NoticeController::class, 'notice_form']);
-
 Route::post('/notice_update', [NoticeController::class, 'notice_form']);
 
-//lookbook ( 룩북 )
+
+/* lookbook ( 룩북 ) */
 Route::get('/lookbook', [LookbookController::class, 'lookbook_index']);
 Route::post('/lookbook/category', [LookbookController::class, 'lookbook_category']);
 Route::match(array('GET','POST'), '/lookbook/content', [LookbookController::class, 'lookbook_content']);
 
-//guy news ( 가이뉴스 )
-Route::get('/guy_news', function () {
-    return view('guy_news');
-});
 
-//Contact ( 간편상담 및 가이주얼리 위치 / 안내 )
-Route::get('/contact', function () {
-    return view('contact');
-});
+/* Guy news ( 가이뉴스 ) */
+Route::get('/guy_news', [GuyNewsController::class, 'guy_news_index']);
+Route::match(array('GET','POST'), '/guy_news_detail', [GuyNewsController::class, 'guy_news_detail']);
 
+//Guy news 작성 및 수정 폼
+Route::match(array('GET','POST'), '/guy_news_write', [GuyNewsController::class, 'guy_news_form']);
+Route::post('/guy_news_update', [GuyNewsController::class, 'guy_news_form']);
+
+
+
+/* Contact ( 간편상담 및 가이주얼리 위치 / 안내 ) */
+Route::get('/contact', [ContactController::class, 'contact_index']);
+
+// 간편상담 신청
+Route::post('/contact/inquiry_write_action', [ContactController::class, 'inquiry_write_action']);
+
+
+/* Shop ( 샵 ) */
+Route::get('/shop', [ShopController::class, 'shop_index']);
+Route::post('/shop/sub_category_list', [ShopController::class, 'sub_category_list']);
 
 
 /*********** 부가 api (insert, update, delete) ***********/
@@ -92,13 +110,35 @@ Route::post('/notice/add_views', [NoticeController::class, 'notice_add_views']);
 
 
 //공지사항 삭제 api
-Route::post('notice/delete_action', [NoticeController::class, 'notice_delete_action']);
+Route::post('/notice/delete_action', [NoticeController::class, 'notice_delete_action']);
 
 //공지사항 수정 api
-Route::post('notice/update_action', [NoticeController::class, 'notice_update_action']);
+Route::post('/notice/update_action', [NoticeController::class, 'notice_update_action']);
 
 //공지사항 파일 다운로드 api
-Route::post('notice/download_file', [NoticeController::class, 'notice_download_file']);
+Route::post('/notice/download_file', [NoticeController::class, 'notice_download_file']);
+
+
+
+
+//가이뉴스 작성 api
+Route::post('/guy_news/write_action', [GuyNewsController::class, 'guy_news_write_action']);
+
+//가이뉴스 에디터 이미지 저장 api
+Route::post('/guy_news/save_editor_images', [GuyNewsController::class, 'save_editor_images']);
+
+//가이뉴스 조회수 증가 api
+Route::post('/guy_news/add_views', [GuyNewsController::class, 'guy_news_add_views']);
+
+
+//가이뉴스 삭제 api
+Route::post('/guy_news/delete_action', [GuyNewsController::class, 'guy_news_delete_action']);
+
+//가이뉴스 수정 api
+Route::post('/guy_news/update_action', [GuyNewsController::class, 'guy_news_update_action']);
+
+//가이뉴스 파일 다운로드 api
+Route::post('/guy_news/download_file', [GuyNewsController::class, 'guy_news_download_file']);
 
 
 
@@ -106,10 +146,12 @@ Route::post('notice/download_file', [NoticeController::class, 'notice_download_f
 
 Route::get('/admin/login', [AdminController::class, 'login']);
 Route::post('/admin/login_action', [AdminController::class, 'login_action']);
-Route::post('/admin/logout_action', [AdminController::class, 'logout_action']);
+Route::get('/admin/logout_action', [AdminController::class, 'logout_action']);
 
 //관리자 대시보드(메인)
 Route::get('/admin/index', [AdminController::class, 'admin_index']);
+
+Route::post('/admin/new_alarm_check_action', [AdminController::class, 'new_alarm_check_action']);
 
 
 /************** 설정 관리 *******************/
@@ -149,3 +191,31 @@ Route::post('/admin/lookbook/lookbook_write_action', [AdminLookbookController::c
 Route::post('/admin/lookbook/lookbook_delete_action', [AdminLookbookController::class, 'lookbook_delete_action']);
 Route::post('/admin/lookbook/lookbook_update_action', [AdminLookbookController::class, 'lookbook_update_action']);
 Route::post('/admin/lookbook/lookbook_info', [AdminLookbookController::class, 'lookbook_info']);
+
+
+/************** Contact *******************/
+/* 관리자 > contact > 간편 상담 신청 관리 */
+Route::get('/admin/contact/inquiry', [AdminContactController::class, 'inquiry_index']);
+Route::post('/admin/contact/inquiry_check_action', [AdminContactController::class, 'inquiry_check_action']);
+Route::post('/admin/contact/inquiry_delete_action', [AdminContactController::class, 'inquiry_delete_action']);
+Route::post('/admin/contact/inquiry_info', [AdminContactController::class, 'inquiry_info']);
+
+
+/************** Shop *******************/
+/* 관리자 > shop > 메인 카테고리 관리 */
+Route::get('/admin/shop/main_category', [AdminShopController::class, 'main_category_index']);
+
+/* 관리자 > shop > 서브 카테고리 관리 */
+Route::get('/admin/shop/sub_category', [AdminShopController::class, 'sub_category_index']);
+
+/* 관리자 > shop > 브랜드 관리 */
+Route::get('/admin/shop/brand', [AdminShopController::class, 'brand_index']);
+
+/* 관리자 > shop > 상품 관리 */
+Route::get('/admin/shop/product', [AdminShopController::class, 'product_index']);
+Route::get('/admin/shop/product_write', [AdminShopController::class, 'product_write']);
+
+
+Route::post('/admin/shop/inquiry_check_action', [AdminShopController::class, 'inquiry_check_action']);
+Route::post('/admin/shop/inquiry_delete_action', [AdminShopController::class, 'inquiry_delete_action']);
+Route::post('/admin/shop/inquiry_info', [AdminShopController::class, 'inquiry_info']);

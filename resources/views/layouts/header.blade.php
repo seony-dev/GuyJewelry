@@ -76,20 +76,27 @@
             <nav class="navbar navbar-custom navbar-fixed-top navbar-transparent" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
-                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="/">GUY JEWELRY</a>
+                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/">GUY JEWELRY</a>
                     </div>
                     <div class="collapse navbar-collapse" id="custom-collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="/notice">NOTICE</a></li>
                             <li class="dropdown">
-                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">SHOP</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="index_mp_fullscreen_video_background.html">Ring</a></li>
-                                        <li><a href="index_op_fullscreen_gradient_overlay.html">bracelet</a></li>
-                                        <li><a href="index_agency.html">Necklace</a></li>
-                                        <li><a href="index_portfolio.html">watch</a></li>
-                                        <li><a href="index_restaurant.html">etc.</a></li>
-                                    </ul>
+                                <a href="/shop">SHOP</a>
+{{--                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">SHOP</a>--}}
+{{--                                    <ul class="dropdown-menu">--}}
+{{--                                        <li><a href="index_mp_fullscreen_video_background.html">Ring</a></li>--}}
+{{--                                        <li><a href="index_op_fullscreen_gradient_overlay.html">bracelet</a></li>--}}
+{{--                                        <li><a href="index_agency.html">Necklace</a></li>--}}
+{{--                                        <li><a href="index_portfolio.html">watch</a></li>--}}
+{{--                                        <li><a href="index_restaurant.html">etc.</a></li>--}}
+{{--                                    </ul>--}}
                             </li>
                             <li><a href="/lookbook">LOOKBOOK</a>
                                 <ul class="dropdown-menu">
@@ -104,7 +111,7 @@
                                     <li><a href="index_shop.html">Shop</a></li>
                                 </ul>
                             </li>
-                            <li><a href="#">GUY NEWS</a>
+                            <li><a href="/guy_news">GUY NEWS</a>
                                 <ul class="dropdown-menu">
                                     <li><a href="index_mp_fullscreen_video_background.html">Default</a></li>
                                     <li><a href="index_op_fullscreen_gradient_overlay.html">One Page</a></li>

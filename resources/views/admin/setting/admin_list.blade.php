@@ -129,7 +129,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="update_adminFrm">
-                        <input type="hidden" class="admin_id" name="admin_id">
+                        <input type="hidden" id="admin_id" name="admin_id">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <colgroup>
                                 <col style="width: 20%;">
@@ -138,7 +138,10 @@
                             <tbody>
                                 <tr>
                                     <th>아이디</th>
-                                    <td><span id="update_admin_id"></span></td>
+                                    <td>
+                                        <span id="update_admin_id"></span>
+
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>이름</th>
@@ -171,15 +174,20 @@
 
             $("#btn_insert_admin").on("click", function(){
 
-                var insert_adminFrm = $("#insert_adminFrm");
-                var formData = new FormData(insert_adminFrm);
+                var insert_admin_id = $("#insert_admin_id").val();
+                var insert_admin_name = $("#insert_admin_name").val();
+                var insert_admin_pw = $("#insert_admin_pw").val();
 
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                     , url : "/admin/setting/admin_write_action"
-                    , data: formData
+                    , data: {
+                        insert_admin_id : insert_admin_id
+                        , insert_admin_name : insert_admin_name
+                        , insert_admin_pw : insert_admin_pw
+                    }
                     , type:'POST'
                     , success:function(result) {
                         if(result == "success") {
@@ -258,6 +266,7 @@
                     }
                     , success:function(result) {
 
+                        $("#update_adminFrm #admin_id").val(result.id);
                         $("#update_admin_id").text(result.member_id);
                         $("#update_admin_name").val(result.member_name);
                     }
@@ -266,15 +275,20 @@
 
             $('.btn_update_admin').on("click", function(){
 
-                var update_adminFrm = $('#update_adminFrm');
-                var formData = new FormData(update_adminFrm);
+                var admin_id = $("#update_adminFrm #admin_id").val();
+                var update_admin_name = $("#update_admin_name").val();
+                var update_admin_pw = $("#update_admin_pw").val();
 
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                     , url : "/admin/setting/admin_update_action"
-                    , data: formData
+                    , data: {
+                        admin_id : admin_id
+                        , update_admin_name : update_admin_name
+                        , update_admin_pw : update_admin_pw
+                    }
                     , type:'POST'
                     , success:function(result) {
 

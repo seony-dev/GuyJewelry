@@ -30,7 +30,7 @@
                             <th>NO</th>
                             <th>카테고리명</th>
                             <th>카테고리 이미지</th>
-                            <th>등록일</th>
+                            <th style="border-right-color: transparent;">등록일</th>
                             <th> </th>
                         </tr>
                     </thead>

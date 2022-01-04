@@ -1,6 +1,38 @@
 @extends('layouts.header')
 
 @section('content')
+    <script>
+        $(document).ready(function(){
+           $("#btn_write_inquiry").on("click", function(){
+               var applicant_name = $("#applicant_name").val();
+               var applicant_phone = $("#applicant_phone").val();
+               var applicant_email = $("#applicant_email").val();
+               var inquiry_contents = $("#inquiry_contents").val();
+
+               $.ajax({
+                   headers: {
+                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                   }
+                   , url : "/contact/inquiry_write_action"
+                   , data: {
+                       applicant_name : applicant_name
+                       , applicant_phone : applicant_phone
+                       , applicant_email : applicant_email
+                       , inquiry_contents : inquiry_contents
+                   }
+                   , type:'POST'
+                   , success:function(result) {
+                       if(result == "success") {
+                           alert("간편 상담 신청이 완료됐습니다!");
+                           location.reload();
+                       } else {
+                           alert("에러가 발생했습니다. 다시 시도해주세요.");
+                       }
+                   }
+               });
+           });
+        });
+    </script>
     <section class="module bg-dark-60 contact-page-header bg-dark" data-background="/images/shop/2.jpg">
         <div class="container">
             <div class="row">
@@ -16,23 +48,28 @@
             <div class="row">
                 <div class="col-sm-6">
                     <h4 class="font-alt">간편 상담</h4><br/>
-                    <form id="contactForm" role="form" method="post" action="php/contact.php">
+                    <form id="contactFrm">
                         <div class="form-group">
                             <label class="sr-only" for="name">Name</label>
-                            <input class="form-control" type="text" id="name" name="name" placeholder="* 성함" required="required" data-validation-required-message="Please enter your name."/>
+                            <input class="form-control" type="text" id="applicant_name" name="applicant_name" placeholder="* 성함" required="required" data-validation-required-message="성명을 입력해주세요."/>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="email">Phone</label>
+                            <input class="form-control" type="text" id="applicant_phone" name="applicant_phone" placeholder="* 전화번호" required="required" data-validation-required-message="전화번호를 입력해주세요." maxlength="13"/>
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group">
                             <label class="sr-only" for="email">Email</label>
-                            <input class="form-control" type="email" id="email" name="email" placeholder="* 전화번호" required="required" data-validation-required-message="Please enter your email address."/>
+                            <input class="form-control" type="email" id="applicant_email" name="applicant_email" placeholder="이메일" required="required" data-validation-required-message="이메일을 입력해주세요."/>
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control" rows="7" id="message" name="message" placeholder="* 상담내용" required="required" data-validation-required-message="Please enter your message."></textarea>
+                            <textarea class="form-control" rows="7" id="inquiry_contents" name="inquiry_contents" placeholder="* 상담내용" required="required" data-validation-required-message="간편 상담 내용을 입력해주세요."></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                         <div class="text-center">
-                            <button class="btn btn-block btn-round btn-d" id="cfsubmit" type="submit">접수</button>
+                            <button class="btn btn-block btn-round btn-d" id="btn_write_inquiry" type="button">접수</button>
                         </div>
                     </form>
                     <div class="ajax-response font-alt" id="contactFormResponse"></div>
