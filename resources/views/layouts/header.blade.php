@@ -56,6 +56,8 @@
     <link href="/css/style.css" rel="stylesheet">
     <link id="color-scheme" href="/css/colors/default.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="/css/summerNote/summernote-lite.css">
+
     {{-- 자바스크립트 --}}
     <script src="/lib/jquery/dist/jquery.js"></script>
     <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -70,6 +72,9 @@
     <script src="/lib/simple-text-rotator/jquery.simple-text-rotator.min.js"></script>
     <script src="/js/plugins.js"></script>
     <script src="/js/main.js"></script>
+
+    <script src="/js/summerNote/summernote-lite.js"></script>
+    <script src="/js/summerNote/lang/summernote-ko-KR.js"></script>
 
     <body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
         <main>

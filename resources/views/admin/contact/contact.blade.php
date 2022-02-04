@@ -37,7 +37,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if(count($inquiry_list) > 0)
+                    @if(is_null($inquiry_list) ? 0 : count($inquiry_list) > 0)
                         @foreach($inquiry_list as $inquiry)
                             <tr>
                                 <td>
@@ -68,10 +68,11 @@
                     @endif
                     </tbody>
                 </table>
-                <div align="center">
-                    {{$inquiry_list->links()}}
-                </div>
-
+                @if(is_null($inquiry_list) ? 0 : count($inquiry_list) > 0)
+                    <div align="center">
+                        {{$inquiry_list->links()}}
+                    </div>
+                @endif
             </div>
         </div>
     </div>

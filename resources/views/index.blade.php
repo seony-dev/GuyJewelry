@@ -7,7 +7,7 @@
         <section class="home-section home-fade home-full-height" id="home">
             <div class="hero-slider">
                 <ul class="slides">
-                    <li class="bg-dark-30 bg-dark shop-page-header" style="background-image:url('/images/shop/watchring.gif');">
+                    <li class="bg-dark-30 bg-dark shop-page-header" style="background-image:url('/images/logo/gj_logo.png');">
                         <div class="titan-caption">
                             <div class="caption-content">
                                 <div class="font-alt mb-30 titan-title-size-1">Luxury Jewelry</div>
@@ -17,7 +17,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="bg-dark-30 bg-dark shop-page-header" style="background-image:url('/images/shop/watchring_main2.png');">
+                    <li class="bg-dark-30 bg-dark shop-page-header" style="background-image:url('/images/shop/watchring.gif');">
                         <div class="titan-caption">
                             <div class="caption-content">
                                 <div class="font-alt mb-30 titan-title-size-1"> 럭셔리 명품 주얼리 </div>

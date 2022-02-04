@@ -35,7 +35,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if(count($admin_list) > 0)
+                    @if(is_null($admin_list) ? 0 : count($admin_list) > 0)
                         @foreach($admin_list as $admin)
                             <tr>
                                 <td>{{$admin->id}}</td>
@@ -59,10 +59,11 @@
                     @endif
                     </tbody>
                 </table>
-                <div align="center">
-                    {{$admin_list->links()}}
-                </div>
-
+                @if(is_null($admin_list) ? 0 : count($admin_list) > 0)
+                    <div align="center">
+                        {{$admin_list->links()}}
+                    </div>
+                @endif
             </div>
         </div>
     </div>

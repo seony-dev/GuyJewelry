@@ -32,7 +32,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if(count($shop_brand_list) > 0)
+                    @if(is_null($shop_brand_list) ? 0 : count($shop_brand_list) > 0)
                         @foreach($shop_brand_list as $shop_brand)
                             <tr>
                                 <td>{{$shop_brand->id}}</td>
@@ -56,10 +56,11 @@
                     @endif
                     </tbody>
                 </table>
-                <div align="center">
-                    {{$shop_brand_list->links()}}
-                </div>
-
+                @if(is_null($shop_brand_list) ? 0 : count($shop_brand_list) > 0)
+                    <div align="center">
+                        {{$shop_brand_list->links()}}
+                    </div>
+                @endif
             </div>
         </div>
     </div>

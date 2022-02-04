@@ -39,7 +39,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if(count($lookbook_list) > 0)
+                    @if(is_null($lookbook_list) ? 0 : count($lookbook_list) > 0)
                         @foreach($lookbook_list as $lookbook)
                             <tr>
                                 <td>
@@ -74,10 +74,11 @@
                     @endif
                     </tbody>
                 </table>
+                @if(is_null($lookbook_list) ? 0 : count($lookbook_list) > 0)
                 <div align="center">
                     {{$lookbook_list->links()}}
                 </div>
-
+                @endif
             </div>
         </div>
     </div>

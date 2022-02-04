@@ -215,7 +215,11 @@ Route::get('/admin/shop/brand', [AdminShopController::class, 'brand_index']);
 Route::get('/admin/shop/product', [AdminShopController::class, 'product_index']);
 Route::get('/admin/shop/product_write', [AdminShopController::class, 'product_write']);
 
+Route::get('/admin/shop/get_sub_category_list', [AdminShopController::class, 'get_sub_category_list']);
 
-Route::post('/admin/shop/inquiry_check_action', [AdminShopController::class, 'inquiry_check_action']);
-Route::post('/admin/shop/inquiry_delete_action', [AdminShopController::class, 'inquiry_delete_action']);
-Route::post('/admin/shop/inquiry_info', [AdminShopController::class, 'inquiry_info']);
+//Route::post('/admin/shop/save_editor_images', [AdminShopController::class, 'save_editor_images']);
+Route::post('/save_editor_images', [Controller::class, 'save_editor_images']);
+
+Route::post('/admin/shop/product_insert_action', [AdminShopController::class, 'product_insert_action']);
+Route::post('/admin/shop/product_delete_action', [AdminShopController::class, 'product_delete_action']);
+Route::post('/admin/shop/product_update_action', [AdminShopController::class, 'product_update_action']);

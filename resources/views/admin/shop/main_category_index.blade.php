@@ -32,7 +32,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if(count($shop_main_category_list) > 0)
+                    @if(is_null($shop_main_category_list) ? 0 : count($shop_main_category_list) > 0)
                         @foreach($shop_main_category_list as $shop_main_category)
                             <tr>
                                 <td>{{$shop_main_category->id}}</td>
@@ -56,10 +56,11 @@
                     @endif
                     </tbody>
                 </table>
-                <div align="center">
-                    {{$shop_main_category_list->links()}}
-                </div>
-
+                @if(is_null($shop_main_category_list) ? 0 : count($shop_main_category_list) > 0)
+                    <div align="center">
+                        {{$shop_main_category_list->links()}}
+                    </div>
+                @endif
             </div>
         </div>
     </div>

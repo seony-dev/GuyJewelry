@@ -2,7 +2,6 @@
 
 @section('content')
 
-    <link rel="stylesheet" href="/css/summerNote/summernote-lite.css">
     <style>
         table th {
             text-align: center;
@@ -38,9 +37,6 @@
             font-weight: bold;
         }
     </style>
-    <script src="/js/summerNote/summernote-lite.js"></script>
-    <script src="/js/summerNote/lang/summernote-ko-KR.js"></script>
-
     <script>
         $(document).ready(function() {
 

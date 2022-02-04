@@ -52,16 +52,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if(count($shop_product_list) > 0)
+                    @if(is_null($shop_product_list) ? 0 : count($shop_product_list) > 0)
                         @foreach($shop_product_list as $shop_product)
                             <tr>
                                 <td>{{$shop_product->shop_product_id}}</td>
                                 <td>{{$shop_product->product_code}}</td>
                                 <td>{{$shop_product->product_name}}</td>
-                                <td>{{$shop_product->product_image_main}}</td>
+                                <td>
+{{--                                    {{$shop_product->product_image_main}}--}}
+{{--                                    <br>--}}
+                                    <img src="{{$shop_product->product_image_main}}" alt="" width="30%;">
+                                </td>
                                 <td>{{$shop_product->main_category_name}}</td>
                                 <td>{{$shop_product->sub_category_name}}</td>
-                                <td>{{$shop_product->brand_name}}</td>
+                                <td>{{$shop_product->shop_brand_name}}</td>
                                 <td>{{$shop_product->product_price}}</td>
                                 <td>@if($shop_product->product_main_yn === 'N') X @else O @endif</td>
                                 <td>{{$shop_product->created_at}}</td>
@@ -82,10 +86,11 @@
                     @endif
                     </tbody>
                 </table>
-                <div align="center">
-                    {{$shop_product_list->links()}}
-                </div>
-
+                @if(is_null($shop_product_list) ? 0 : count($shop_product_list) > 0)
+                    <div align="center">
+                        {{$shop_product_list->links()}}
+                    </div>
+                @endif
             </div>
         </div>
     </div>

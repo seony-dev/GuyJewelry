@@ -35,7 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if(count($lookbook_main_category_list) > 0)
+                        @if(is_null($lookbook_main_category_list) ? 0 : count($lookbook_main_category_list) > 0)
                             @foreach($lookbook_main_category_list as $lookbook_main_category)
                                 <tr>
                                     <td>
@@ -64,10 +64,11 @@
                         @endif
                     </tbody>
                 </table>
-                <div align="center">
-                    {{$lookbook_main_category_list->links()}}
-                </div>
-
+                @if(is_null($lookbook_main_category_list) ? 0 : count($lookbook_main_category_list) > 0)
+                    <div align="center">
+                        {{$lookbook_main_category_list->links()}}
+                    </div>
+                @endif
             </div>
         </div>
     </div>

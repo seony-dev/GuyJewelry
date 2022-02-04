@@ -37,7 +37,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if(count($inquiry_list) > 0)
+                    @if(is_null($inquiry_list) ? 0 : count($inquiry_list) > 0)
                         @foreach($inquiry_list as $inquiry)
                             <tr class="inquiry_tr" data-toggle="modal" data-target="#inquiry_detail_modal" style="cursor: pointer;" data-id="{{$inquiry->id}}">
                                 <td>
@@ -76,10 +76,11 @@
                     @endif
                     </tbody>
                 </table>
-                <div align="center">
-                    {{$inquiry_list->links()}}
-                </div>
-
+                @if(is_null($inquiry_list) ? 0 : count($inquiry_list) > 0)
+                    <div align="center">
+                        {{$inquiry_list->links()}}
+                    </div>
+                @endif
             </div>
         </div>
     </div>
